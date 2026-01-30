@@ -1,0 +1,454 @@
+{
+  "huihui_ai/orchestrator-abliterated:latest": {
+    "code": "huihui_ai/orchestrator-abliterated:latest",
+    "provider": "Ollama",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 40000,
+    "capabilities": [
+      "routing",
+      "orchestration",
+      "local_inference",
+      "uncensored"
+    ],
+    "price_input": 0.0,
+    "price_output": 0.0,
+    "rate_tpm": 0,
+    "rate_rpm": 0,
+    "reasoning": true,
+    "metadata": {
+      "description": "Local 8B parameter orchestration model for complex agentic tasks.",
+      "source": "Local"
+    }
+  },
+  "claude-opus-4-5": {
+    "code": "claude-opus-4-5",
+    "provider": "Anthropic",
+    "modality_in": "multimodal",
+    "modality_out": "text",
+    "context_tokens": 200000,
+    "capabilities": [
+      "complex_reasoning",
+      "tool_use",
+      "prompt_caching"
+    ],
+    "price_input": 5.0,
+    "price_output": 25.0,
+    "rate_tpm": 40000,
+    "rate_rpm": 4000,
+    "reasoning": true,
+    "metadata": {
+      "cache_write_5m": 6.25,
+      "cache_read": 0.5
+    }
+  },
+  "claude-opus-4-1": {
+    "code": "claude-opus-4-1",
+    "provider": "Anthropic",
+    "modality_in": "multimodal",
+    "modality_out": "text",
+    "context_tokens": 200000,
+    "capabilities": [
+      "reasoning",
+      "tool_use"
+    ],
+    "price_input": 15.0,
+    "price_output": 75.0,
+    "rate_tpm": 40000,
+    "rate_rpm": 4000,
+    "reasoning": true,
+    "metadata": {
+      "cache_write_5m": 18.75,
+      "cache_read": 1.5
+    }
+  },
+  "claude-sonnet-4-5": {
+    "code": "claude-sonnet-4-5",
+    "provider": "Anthropic",
+    "modality_in": "multimodal",
+    "modality_out": "text",
+    "context_tokens": 200000,
+    "capabilities": [
+      "computer_use",
+      "tool_use",
+      "vision",
+      "prompt_caching"
+    ],
+    "price_input": 3.0,
+    "price_output": 15.0,
+    "rate_tpm": 80000,
+    "rate_rpm": 5000,
+    "reasoning": true,
+    "metadata": {
+      "cache_write_5m": 3.75,
+      "cache_read": 0.3,
+      "long_context_beta": true
+    }
+  },
+  "claude-haiku-4-5": {
+    "code": "claude-haiku-4-5",
+    "provider": "Anthropic",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 200000,
+    "capabilities": [
+      "fast_inference",
+      "tool_use"
+    ],
+    "price_input": 1.0,
+    "price_output": 5.0,
+    "rate_tpm": 100000,
+    "rate_rpm": 5000,
+    "reasoning": false,
+    "metadata": {
+      "cache_write_5m": 1.25,
+      "cache_read": 0.1
+    }
+  },
+  "gemini-3-pro-preview": {
+    "code": "gemini-3-pro-preview",
+    "provider": "Google",
+    "modality_in": "multimodal",
+    "modality_out": "text",
+    "context_tokens": 2000000,
+    "capabilities": [
+      "agentic",
+      "vibe-coding",
+      "google_search",
+      "multimodal"
+    ],
+    "price_input": 2.0,
+    "price_output": 12.0,
+    "rate_tpm": 2000000,
+    "rate_rpm": 1000,
+    "reasoning": true,
+    "metadata": {
+      "input_audio_price": 2.0,
+      "input_video_price": 2.0,
+      "search_price": 14.0
+    }
+  },
+  "gemini-2.5-pro": {
+    "code": "gemini-2.5-pro",
+    "provider": "Google",
+    "modality_in": "multimodal",
+    "modality_out": "text",
+    "context_tokens": 2000000,
+    "capabilities": [
+      "coding",
+      "complex_reasoning",
+      "google_search",
+      "google_maps"
+    ],
+    "price_input": 1.25,
+    "price_output": 5.0,
+    "rate_tpm": 2000000,
+    "rate_rpm": 1000,
+    "reasoning": true,
+    "metadata": {
+      "input_long_context": 2.5,
+      "output_long_context": 10.0
+    }
+  },
+  "gemini-2.5-flash": {
+    "code": "gemini-2.5-flash",
+    "provider": "Google",
+    "modality_in": "multimodal",
+    "modality_out": "text",
+    "context_tokens": 1000000,
+    "capabilities": [
+      "hybrid_reasoning",
+      "high_volume",
+      "low_latency"
+    ],
+    "price_input": 0.1,
+    "price_output": 0.4,
+    "rate_tpm": 4000000,
+    "rate_rpm": 2000,
+    "reasoning": true,
+    "metadata": {
+      "audio_input": 2.0
+    }
+  },
+  "gemini-2.5-flash-lite": {
+    "code": "gemini-2.5-flash-lite",
+    "provider": "Google",
+    "modality_in": "multimodal",
+    "modality_out": "text",
+    "context_tokens": 1000000,
+    "capabilities": [
+      "cost_effective",
+      "high_throughput"
+    ],
+    "price_input": 0.05,
+    "price_output": 0.2,
+    "rate_tpm": 4000000,
+    "rate_rpm": 2000,
+    "reasoning": false,
+    "metadata": {
+      "batch_input": 0.025
+    }
+  },
+  "gemini-2.5-computer-use-preview": {
+    "code": "gemini-2.5-computer-use-preview",
+    "provider": "Google",
+    "modality_in": "multimodal",
+    "modality_out": "text",
+    "context_tokens": 1000000,
+    "capabilities": [
+      "browser_control",
+      "gui_automation"
+    ],
+    "price_input": 1.25,
+    "price_output": 5.0,
+    "rate_tpm": 100000,
+    "rate_rpm": 500,
+    "reasoning": true,
+    "metadata": {
+      "description": "Optimized for building browser control agents."
+    }
+  },
+  "gpt-5.1": {
+    "code": "gpt-5.1",
+    "provider": "OpenAI",
+    "modality_in": "multimodal",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": [
+      "function_calling",
+      "json_mode",
+      "vision",
+      "high_intelligence"
+    ],
+    "price_input": 1.25,
+    "price_output": 10.0,
+    "rate_tpm": 2000000,
+    "rate_rpm": 500,
+    "reasoning": true,
+    "metadata": {
+      "cached_input": 0.125,
+      "priority_input": 2.5
+    }
+  },
+  "gpt-5-pro": {
+    "code": "gpt-5-pro",
+    "provider": "OpenAI",
+    "modality_in": "multimodal",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": [
+      "maximum_reasoning",
+      "complex_tasks"
+    ],
+    "price_input": 15.0,
+    "price_output": 120.0,
+    "rate_tpm": 500000,
+    "rate_rpm": 200,
+    "reasoning": true,
+    "metadata": {}
+  },
+  "gpt-4.1": {
+    "code": "gpt-4.1",
+    "provider": "OpenAI",
+    "modality_in": "multimodal",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": [
+      "function_calling",
+      "reliable"
+    ],
+    "price_input": 2.0,
+    "price_output": 8.0,
+    "rate_tpm": 1000000,
+    "rate_rpm": 500,
+    "reasoning": false,
+    "metadata": {
+      "cached_input": 0.5
+    }
+  },
+  "o1-pro": {
+    "code": "o1-pro",
+    "provider": "OpenAI",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 200000,
+    "capabilities": [
+      "deep_reasoning",
+      "stem",
+      "research"
+    ],
+    "price_input": 150.0,
+    "price_output": 600.0,
+    "rate_tpm": 100000,
+    "rate_rpm": 100,
+    "reasoning": true,
+    "metadata": {
+      "description": "Maximum reasoning capability model."
+    }
+  },
+  "o3-deep-research": {
+    "code": "o3-deep-research",
+    "provider": "OpenAI",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": [
+      "web_browsing",
+      "report_generation",
+      "citation"
+    ],
+    "price_input": 10.0,
+    "price_output": 40.0,
+    "rate_tpm": 200000,
+    "rate_rpm": 500,
+    "reasoning": true,
+    "metadata": {
+      "cached_input": 2.5
+    }
+  },
+  "grok-4-1-fast-reasoning": {
+    "code": "grok-4-1-fast-reasoning",
+    "provider": "xAI",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 2000000,
+    "capabilities": [
+      "agentic_tool_calling",
+      "web_search",
+      "x_search",
+      "reasoning"
+    ],
+    "price_input": 0.2,
+    "price_output": 0.5,
+    "rate_tpm": 500000,
+    "rate_rpm": 1000,
+    "reasoning": true,
+    "metadata": {
+      "description": "Specialized for agentic tool calling loops."
+    }
+  },
+  "grok-code-fast-1": {
+    "code": "grok-code-fast-1",
+    "provider": "xAI",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 256000,
+    "capabilities": [
+      "coding",
+      "agentic_coding"
+    ],
+    "price_input": 0.2,
+    "price_output": 1.5,
+    "rate_tpm": 500000,
+    "rate_rpm": 1000,
+    "reasoning": true,
+    "metadata": {}
+  },
+  "deepseek-chat": {
+    "code": "deepseek-chat",
+    "provider": "DeepSeek",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": [
+      "json_output",
+      "tool_calls",
+      "prefix_completion"
+    ],
+    "price_input": 0.28,
+    "price_output": 0.42,
+    "rate_tpm": 1000000,
+    "rate_rpm": 1000,
+    "reasoning": false,
+    "metadata": {
+      "version": "V3.2",
+      "cache_hit_price": 0.028
+    }
+  },
+  "deepseek-reasoner": {
+    "code": "deepseek-reasoner",
+    "provider": "DeepSeek",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": [
+      "thinking_mode",
+      "complex_logic"
+    ],
+    "price_input": 0.28,
+    "price_output": 0.42,
+    "rate_tpm": 500000,
+    "rate_rpm": 500,
+    "reasoning": true,
+    "metadata": {
+      "version": "V3.2-Speciale"
+    }
+  },
+  "sonar-deep-research": {
+    "code": "sonar-deep-research",
+    "provider": "Perplexity",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": [
+      "exhaustive_search",
+      "citations",
+      "report_generation"
+    ],
+    "price_input": 2.0,
+    "price_output": 8.0,
+    "rate_tpm": 100000,
+    "rate_rpm": 200,
+    "reasoning": true,
+    "metadata": {
+      "citation_tokens_price": 2.0,
+      "search_queries_price": 3.0,
+      "request_fee_high": 14.0
+    }
+  },
+  "sonar-reasoning-pro": {
+    "code": "sonar-reasoning-pro",
+    "provider": "Perplexity",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": [
+      "multi_step_reasoning",
+      "search_grounding"
+    ],
+    "price_input": 2.0,
+    "price_output": 8.0,
+    "rate_tpm": 150000,
+    "rate_rpm": 500,
+    "reasoning": true,
+    "metadata": {
+      "request_fee_high": 14.0
+    }
+  },
+  "amazon.nova-premier-v1:0": {
+    "code": "amazon.nova-premier-v1:0",
+    "provider": "Amazon",
+    "modality_in": "multimodal",
+    "modality_out": "text",
+    "context_tokens": 1000000,
+    "capabilities": [
+      "document_processing",
+      "agentic",
+      "cross_region_inference"
+    ],
+    "price_input": 0.0,
+    "price_output": 0.0,
+    "rate_tpm": 0,
+    "rate_rpm": 0,
+    "reasoning": false,
+    "metadata": {
+      "description": "Pricing not listed in doc, placeholder for catalog."
+    }
+  },
+  "_metadata": {
+    "_deprecated": true,
+    "_deprecated_date": "2025-12-07T10:48:42.769858",
+    "_deprecated_reason": "Replaced with updated catalog",
+    "_replacement": "See current catalog files in config/"
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "suites": {
+    "file_operations": [
+      {
+        "tool": "file_write",
+        "prompt": "Create a file named 'test_hello.txt' with content 'Hello World'",
+        "input": {
+          "path": "test_hello.txt",
+          "content": "Hello World"
+        }
+      },
+      {
+        "tool": "file_read",
+        "prompt": "Read the content of 'test_hello.txt'",
+        "input": {
+          "path": "test_hello.txt"
+        }
+      },
+      {
+        "tool": "editor",
+        "prompt": "Replace 'World' with 'Universe' in 'test_hello.txt'",
+        "input": {
+          "command": "str_replace",
+          "path": "test_hello.txt",
+          "old_str": "World",
+          "new_str": "Universe"
+        }
+      }
+    ],
+    "system": [
+      {
+        "tool": "shell",
+        "prompt": "List files in current directory",
+        "input": {
+          "command": "ls -la"
+        }
+      },
+      {
+        "tool": "calculator",
+        "prompt": "Calculate 15 * 4",
+        "input": {
+          "expression": "15 * 4"
+        }
+      },
+      {
+        "tool": "python_repl",
+        "prompt": "Print the current year using python",
+        "input": {
+          "code": "import datetime; print(datetime.datetime.now().year)"
+        }
+      },
+      {
+        "tool": "think",
+        "prompt": "Plan a travel itinerary",
+        "input": {
+          "thought": "I need to plan a trip to Paris.",
+          "cycle_count": 3
+        }
+      }
+    ],
+    "web": [
+      {
+        "tool": "web_search",
+        "prompt": "Search for 'latest AI news'",
+        "input": {
+          "query": "latest AI news"
+        }
+      },
+      {
+        "tool": "tavily_search",
+        "prompt": "Find current stock price of AAPL",
+        "input": {
+          "query": "AAPL stock price",
+          "topic": "news"
+        }
+      },
+      {
+        "tool": "http_request",
+        "prompt": "Get IP address from ipify",
+        "input": {
+          "method": "GET",
+          "url": "https://api.ipify.org?format=json"
+        }
+      },
+      {
+        "tool": "browser",
+        "prompt": "Navigate to example.com",
+        "input": {
+          "action": {
+            "type": "navigate",
+            "url": "https://example.com"
+          }
+        }
+      }
+    ],
+    "integration": [
+      {
+        "tool": "use_aws",
+        "prompt": "List S3 buckets",
+        "input": {
+          "service_name": "s3",
+          "operation_name": "list_buckets",
+          "parameters": {},
+          "region": "us-east-1",
+          "label": "list buckets"
+        }
+      },
+      {
+        "tool": "slack",
+        "prompt": "Send hello to general",
+        "input": {
+          "action": "post_message",
+          "channel": "general",
+          "text": "Hello from Cortex Core Tests"
+        }
+      },
+      {
+        "tool": "mem0_memory",
+        "prompt": "Store user preference",
+        "input": {
+          "action": "store",
+          "content": "User likes blue",
+          "user_id": "test_user"
+        }
+      },
+      {
+        "tool": "diagram",
+        "prompt": "Create a cloud diagram",
+        "input": {
+          "diagram_type": "cloud",
+          "nodes": [{"id": "s3", "type": "S3"}],
+          "edges": [],
+          "title": "Test Diagram"
+        }
+      }
+    ],
+    "advanced": [
+      {
+        "tool": "batch",
+        "prompt": "Check time and list files",
+        "input": {
+          "invocations": [
+            {"name": "shell", "arguments": {"command": "date"}},
+            {"name": "shell", "arguments": {"command": "ls"}}
+          ]
+        }
+      },
+      {
+        "tool": "mcp_client",
+        "prompt": "Connect to local MCP",
+        "input": {
+          "action": "connect",
+          "connection_id": "test_conn",
+          "transport": "stdio",
+          "command": "python",
+          "args": ["server.py"]
+        }
+      }
+    ]
+  }
+}
+
+
+

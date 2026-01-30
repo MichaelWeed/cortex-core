@@ -1,0 +1,536 @@
+[
+  {
+    "name": "web_search",
+    "description": "Google Custom Search API for web searches",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "implementationPath": "../tools/webSearch"
+  },
+  {
+    "name": "url_scraper",
+    "description": "Playwright-based URL scraper with stealth",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "implementationPath": "../tools/urlScraper"
+  },
+  {
+    "name": "file_read",
+    "description": "Read contents of a file",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path to the file"
+        }
+      },
+      "required": [
+        "path"
+      ]
+    },
+    "implementationPath": "../tools/file_read"
+  },
+  {
+    "name": "file_write",
+    "description": "Write content to a file",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "path": {
+          "type": "string",
+          "description": "Path to the file"
+        },
+        "content": {
+          "type": "string",
+          "description": "Content to write"
+        }
+      },
+      "required": [
+        "path",
+        "content"
+      ]
+    },
+    "implementationPath": "../tools/file_write"
+  },
+  {
+    "name": "editor",
+    "description": "Advanced file editing with syntax highlighting and pattern replacement",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "enum": [
+            "view",
+            "create",
+            "str_replace",
+            "insert",
+            "undo_edit"
+          ]
+        },
+        "path": {
+          "type": "string"
+        },
+        "file_text": {
+          "type": "string"
+        },
+        "view_range": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "old_str": {
+          "type": "string"
+        },
+        "new_str": {
+          "type": "string"
+        },
+        "insert_line": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "command",
+        "path"
+      ]
+    },
+    "implementationPath": "../tools/editor"
+  },
+  {
+    "name": "shell",
+    "description": "Execute shell commands",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "description": "Shell command to execute"
+        },
+        "ignore_errors": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": [
+        "command"
+      ]
+    },
+    "implementationPath": "../tools/shell"
+  },
+  {
+    "name": "python_repl",
+    "description": "Execute Python code snippets",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Python code to execute"
+        }
+      },
+      "required": [
+        "code"
+      ]
+    },
+    "implementationPath": "../tools/python_repl"
+  },
+  {
+    "name": "http_request",
+    "description": "Make HTTP requests with optional authentication",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": [
+            "GET",
+            "POST",
+            "PUT",
+            "DELETE",
+            "PATCH"
+          ]
+        },
+        "url": {
+          "type": "string"
+        },
+        "headers": {
+          "type": "object"
+        },
+        "body": {
+          "type": "string"
+        },
+        "auth_type": {
+          "type": "string",
+          "enum": [
+            "Bearer",
+            "Basic"
+          ]
+        },
+        "auth_token": {
+          "type": "string"
+        },
+        "convert_to_markdown": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "method",
+        "url"
+      ]
+    },
+    "implementationPath": "../tools/http_request"
+  },
+  {
+    "name": "browser",
+    "description": "Automated browser interaction (Chromium)",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "navigate",
+                "initSession",
+                "click",
+                "type",
+                "scroll",
+                "screenshot"
+              ]
+            },
+            "url": {
+              "type": "string"
+            },
+            "session_name": {
+              "type": "string"
+            },
+            "selector": {
+              "type": "string"
+            },
+            "text": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "implementationPath": "../tools/browser"
+  },
+  {
+    "name": "use_aws",
+    "description": "Interact with AWS services",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "service_name": {
+          "type": "string"
+        },
+        "operation_name": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "object"
+        },
+        "region": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "service_name",
+        "operation_name"
+      ]
+    },
+    "implementationPath": "../tools/use_aws"
+  },
+  {
+    "name": "slack",
+    "description": "Interact with Slack workspace",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "post_message",
+            "read_channel"
+          ]
+        },
+        "channel": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "implementationPath": "../tools/slack"
+  },
+  {
+    "name": "calculator",
+    "description": "Perform mathematical calculations",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "expression": {
+          "type": "string",
+          "description": "Mathematical expression to evaluate"
+        }
+      },
+      "required": [
+        "expression"
+      ]
+    },
+    "implementationPath": "../tools/calculator"
+  },
+  {
+    "name": "think",
+    "description": "Advanced reasoning and thought tracking",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "thought": {
+          "type": "string",
+          "description": "The thought or problem to analyze"
+        },
+        "cycle_count": {
+          "type": "integer",
+          "default": 1
+        }
+      },
+      "required": [
+        "thought"
+      ]
+    },
+    "implementationPath": "../tools/think"
+  },
+  {
+    "name": "batch",
+    "description": "Execute multiple tools in parallel",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "invocations": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "arguments": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "name",
+              "arguments"
+            ]
+          }
+        }
+      },
+      "required": [
+        "invocations"
+      ]
+    },
+    "implementationPath": "../tools/batch"
+  },
+  {
+    "name": "mcp_client",
+    "description": "Connect to dynamic MCP servers",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "connect",
+            "list_tools",
+            "call_tool",
+            "load_tools"
+          ]
+        },
+        "connection_id": {
+          "type": "string"
+        },
+        "transport": {
+          "type": "string",
+          "enum": [
+            "stdio",
+            "sse",
+            "streamable_http"
+          ]
+        },
+        "command": {
+          "type": "string"
+        },
+        "args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "server_url": {
+          "type": "string"
+        },
+        "tool_name": {
+          "type": "string"
+        },
+        "tool_args": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "implementationPath": "../tools/mcp_client"
+  },
+  {
+    "name": "mem0_memory",
+    "description": "Persistent memory storage with Mem0",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "store",
+            "retrieve",
+            "search"
+          ]
+        },
+        "content": {
+          "type": "string"
+        },
+        "user_id": {
+          "type": "string"
+        },
+        "query": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "action"
+      ]
+    },
+    "implementationPath": "../tools/mem0_memory"
+  },
+  {
+    "name": "tavily_search",
+    "description": "AI-optimized web search with Tavily",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string"
+        },
+        "search_depth": {
+          "type": "string",
+          "enum": [
+            "basic",
+            "advanced"
+          ],
+          "default": "basic"
+        },
+        "topic": {
+          "type": "string",
+          "enum": [
+            "general",
+            "news"
+          ],
+          "default": "general"
+        },
+        "max_results": {
+          "type": "integer",
+          "default": 5
+        },
+        "include_raw_content": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "required": [
+        "query"
+      ]
+    },
+    "implementationPath": "../tools/tavily_search"
+  },
+  {
+    "name": "diagram",
+    "description": "Generate diagrams (Cloud, UML, etc.)",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "diagram_type": {
+          "type": "string",
+          "enum": [
+            "cloud",
+            "class",
+            "sequence",
+            "flowchart"
+          ]
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "diagram_type"
+      ]
+    },
+    "implementationPath": "../tools/diagram"
+  },
+  {
+    "_metadata": {
+      "_deprecated": true,
+      "_deprecated_date": "2025-12-07T10:48:42.769135",
+      "_deprecated_reason": "Replaced with updated catalog",
+      "_replacement": "See current catalog files in config/"
+    }
+  }
+]

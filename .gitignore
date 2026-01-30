@@ -1,0 +1,40 @@
+# Cortex Core
+
+# Environment variables (NEVER commit API keys!)
+.env
+.env.local
+.env.*.local
+
+# Validation outputs
+validation_report.json
+backlog/
+
+# Backup files (keep locally, don't commit)
+config/*.backup
+config/tool_catalog_new.json
+
+# Notes archive
+notes_archive/
+
+# Personal session/notes (keep out of public repo)
+anchor/
+NOTES.md
+notes.yaml
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+

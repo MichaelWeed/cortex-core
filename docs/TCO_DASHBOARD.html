@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Total Cost of Ownership (TCO) Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@2.2.1"></script>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --panel: #1e293b;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent: #6366f1; /* Indigo */
+            --accent-hover: #4f46e5;
+            --border: #334155;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            margin-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 15px;
+        }
+        .header h1 { margin: 0; font-size: 1.8rem; font-weight: 700; color: #fff; }
+        .header p { margin: 5px 0 0; color: var(--text-muted); }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 25px;
+            flex: 1;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            background: var(--panel);
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            height: fit-content;
+        }
+
+        .control-section h3 {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin: 0 0 15px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 8px;
+        }
+
+        .input-group { margin-bottom: 15px; }
+        .input-group label {
+            display: block;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            color: #cbd5e1;
+        }
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .input-wrapper span {
+            position: absolute;
+            left: 10px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        input[type="number"] {
+            width: 100%;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 10px 10px 10px 25px; /* Space for icon */
+            border-radius: 8px;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+        input[type="number"]:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        
+        /* Custom Range Slider */
+        input[type="range"] {
+            width: 100%;
+            margin-top: 5px;
+            accent-color: var(--accent);
+        }
+
+        /* Toggles */
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 8px;
+            transition: background 0.2s;
+        }
+        .checkbox-wrapper:hover { background: rgba(255,255,255,0.05); }
+        
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 22px;
+        }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: var(--bg);
+            border: 1px solid var(--border);
+            transition: .4s;
+            border-radius: 22px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: var(--text-muted);
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--accent); border-color: var(--accent); }
+        input:checked + .slider:before { transform: translateX(18px); background-color: white; }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .kpi-card {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+        .kpi-label { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 5px; }
+        .kpi-value { font-size: 1.4rem; font-weight: 700; color: #fff; }
+        .kpi-sub { font-size: 0.75rem; color: var(--text-muted); margin-top: 5px; }
+
+        .chart-container {
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+            flex: 1;
+            min-height: 400px;
+            position: relative;
+        }
+
+        .analysis-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+            color: #d1fae5;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .analysis-box strong { color: #fff; }
+
+        /* Mobile Responsive */
+        @media (max-width: 900px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .kpi-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>AI TCO Dashboard: The Human Cost</h1>
+        <p>Calculating the true cost of "cheap" models when accounting for human interaction time, context drift, and retries.</p>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="sidebar">
+            
+            <div class="control-section">
+                <h3>Human Capital (The Expensive Part)</h3>
+                <div class="input-group">
+                    <label>Your Hourly Rate ($)</label>
+                    <div class="input-wrapper">
+                        <span>$</span>
+                        <input type="number" id="hourlyRate" value="60">
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label>Interaction Time per Failure (Mins)</label>
+                    <div class="input-wrapper">
+                        <span style="font-size: 1.2rem;">⏱</span>
+                        <input type="number" id="interactionTime" value="2" step="0.5">
+                    </div>
+                    <small style="color:var(--text-muted); font-size:0.75rem; display:block; margin-top:5px;">Time to read error, copy-paste, think, and re-prompt.</small>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3>Task Complexity</h3>
+                <div class="input-group">
+                    <label>Input Tokens (Context)</label>
+                    <input type="number" id="inputTokens" value="15000">
+                </div>
+                <div class="input-group">
+                    <label>Output Tokens (Response)</label>
+                    <input type="number" id="outputTokens" value="1000">
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3>Advanced Logic</h3>
+                <div class="checkbox-wrapper" onclick="toggleCheckbox('caching')">
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.9rem;">Prompt Caching</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">~90% discount on inputs</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="caching" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="checkbox-wrapper" onclick="toggleCheckbox('drift')">
+                    <div>
+                        <div style="font-weight: 600; font-size: 0.9rem;">Context Drift (Compounding)</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">History grows with every error</div>
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="drift" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="main-content">
+            
+            <div class="kpi-row">
+                <div class="kpi-card">
+                    <div class="kpi-label">Cost of 1 Minute of Your Time</div>
+                    <div class="kpi-value" id="humanMinuteCost">$1.00</div>
+                    <div class="kpi-sub">Equivalent to ~500k Flash tokens</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Opus 4.5 (1-Shot) Total Cost</div>
+                    <div class="kpi-value" style="color: var(--accent);" id="opusTotal">$0.15</div>
+                    <div class="kpi-sub">Compute + 1 min verification</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-label">Flash Breakeven Point</div>
+                    <div class="kpi-value" style="color: var(--danger);" id="breakeven">1.2 Tries</div>
+                    <div class="kpi-sub">If Flash fails this many times, you lose money.</div>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <canvas id="tcoChart"></canvas>
+            </div>
+
+            <div class="analysis-box" id="analysisText">
+                </div>
+
+        </div>
+    </div>
+
+    <script>
+        // --- Configuration & Data ---
+        // Prices per Million Tokens
+        const models = [
+            { 
+                id: 'opus', name: 'Claude Opus 4.5', color: '#ec4899', // Pink
+                input: 15.00, output: 75.00, cacheWrite: 18.75, cacheRead: 1.50 
+            },
+            { 
+                id: 'sonnet', name: 'Claude Sonnet 3.5', color: '#f97316', // Orange
+                input: 3.00, output: 15.00, cacheWrite: 3.75, cacheRead: 0.30 
+            },
+            { 
+                id: 'gemini', name: 'Gemini 1.5 Pro', color: '#3b82f6', // Blue
+                input: 1.25, output: 5.00, cacheWrite: 1.25, cacheRead: 0.31 
+            },
+            { 
+                id: 'flash', name: 'Gemini 1.5 Flash', color: '#a855f7', // Purple
+                input: 0.075, output: 0.30, cacheWrite: 0.075, cacheRead: 0.02 
+            }
+        ];
+
+        let chart;
+
+        // --- Core Logic ---
+        function calculateTCO() {
+            const hourlyRate = parseFloat(document.getElementById('hourlyRate').value) || 0;
+            const interactionMins = parseFloat(document.getElementById('interactionTime').value) || 0;
+            const inputTok = parseFloat(document.getElementById('inputTokens').value) || 0;
+            const outputTok = parseFloat(document.getElementById('outputTokens').value) || 0;
+            const useCache = document.getElementById('caching').checked;
+            const useDrift = document.getElementById('drift').checked;
+
+            const humanCostPerInteraction = (hourlyRate / 60) * interactionMins;
+            const maxTries = 10;
+            
+            // Generate Data Points for each model
+            const datasets = models.map(model => {
+                let data = [];
+                let currentInput = inputTok;
+                let cumulativeCompute = 0;
+                let cumulativeHuman = 0;
+
+                for (let i = 1; i <= maxTries; i++) {
+                    // 1. Calculate Human Cost (Time spent verifying/fixing this attempt)
+                    cumulativeHuman += humanCostPerInteraction;
+
+                    // 2. Calculate Compute Cost
+                    let turnInputCost = 0;
+                    
+                    if (useCache) {
+                        if (i === 1) {
+                            // First run is cache write (or standard input)
+                            // Note: Pricing models vary, simplified logic here:
+                            // Usually 1st run is full price + surcharge for write, or just full price
+                            turnInputCost = (currentInput / 1e6) * (model.cacheWrite || model.input);
+                        } else {
+                            // Subsequent runs
+                            if (useDrift) {
+                                // Original context is READ. New error context is WRITE.
+                                const cachedPart = inputTok;
+                                const driftPart = currentInput - inputTok;
+                                turnInputCost = ((cachedPart/1e6) * model.cacheRead) + ((driftPart/1e6) * model.input);
+                            } else {
+                                // Pure retry, all cached
+                                turnInputCost = (currentInput / 1e6) * model.cacheRead;
+                            }
+                        }
+                    } else {
+                        turnInputCost = (currentInput / 1e6) * model.input;
+                    }
+
+                    const turnOutputCost = (outputTok / 1e6) * model.output;
+                    cumulativeCompute += (turnInputCost + turnOutputCost);
+
+                    // 3. Compounding Drift Logic
+                    // If we fail, we feed the output + error msg (~200 toks) back into input
+                    if (useDrift) {
+                        currentInput += (outputTok + 200);
+                    }
+
+                    data.push(cumulativeCompute + cumulativeHuman);
+                }
+
+                return {
+                    label: model.name,
+                    data: data,
+                    borderColor: model.color,
+                    backgroundColor: model.color,
+                    borderWidth: 2,
+                    pointRadius: 3,
+                    tension: 0.1
+                };
+            });
+
+            return { datasets, humanCostPerInteraction };
+        }
+
+        // --- Visual Updates ---
+        function updateDashboard() {
+            const data = calculateTCO();
+            const datasets = data.datasets;
+            
+            // KPIs
+            const opusOneShot = datasets[0].data[0]; // Index 0 is Opus, Data 0 is 1st try
+            const flashOneShot = datasets[3].data[0];
+            const flashTwoShot = datasets[3].data[1]; // Cost after 2 tries
+            
+            // Calculate Breakeven
+            // Find index where Flash cost > Opus One Shot
+            let breakevenIndex = datasets[3].data.findIndex(cost => cost > opusOneShot);
+            let breakevenText = "";
+            
+            if (breakevenIndex === -1) {
+                breakevenText = "10+ Tries";
+            } else if (breakevenIndex === 0) {
+                breakevenText = "Immediate"; // Opus is cheaper on try 1 (unlikely unless tokens are huge)
+            } else {
+                // Linear interpolation for precision
+                const prev = datasets[3].data[breakevenIndex - 1];
+                const curr = datasets[3].data[breakevenIndex];
+                const fraction = (opusOneShot - prev) / (curr - prev);
+                breakevenText = (breakevenIndex + fraction).toFixed(1) + " Tries";
+            }
+
+            document.getElementById('humanMinuteCost').innerText = '$' + (parseFloat(document.getElementById('hourlyRate').value)/60).toFixed(2);
+            document.getElementById('opusTotal').innerText = '$' + opusOneShot.toFixed(2);
+            document.getElementById('breakeven').innerText = breakevenText;
+
+            // Analysis Text
+            const hourly = document.getElementById('hourlyRate').value;
+            const mins = document.getElementById('interactionTime').value;
+            document.getElementById('analysisText').innerHTML = `
+                <strong>The "Salary Trap":</strong> At <strong>$${hourly}/hr</strong>, every interaction costs you <strong>$${((hourly/60)*mins).toFixed(2)}</strong> in time. 
+                <br>
+                Because Gemini Flash is so cheap ($0.075/M), your human time is roughly <strong>${((hourly/60)*mins / (0.075 * 15000 / 1e6)).toFixed(0)}x</strong> more expensive than the model compute itself.
+                <br>
+                Optimization Strategy: Minimize <em>interactions</em>, not token costs.
+            `;
+
+            // Chart
+            if (chart) chart.destroy();
+            const ctx = document.getElementById('tcoChart').getContext('2d');
+            
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [1,2,3,4,5,6,7,8,9,10],
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Total Cost (Compute + Human Time)', color: '#94a3b8' },
+                            grid: { color: '#334155' },
+                            ticks: { color: '#94a3b8', callback: (val) => '$' + val }
+                        },
+                        x: {
+                            title: { display: true, text: 'Number of Attempts (Loops)', color: '#94a3b8' },
+                            grid: { color: '#334155' },
+                            ticks: { color: '#94a3b8' }
+                        }
+                    },
+                    plugins: {
+                        legend: { labels: { color: '#f1f5f9' } },
+                        annotation: {
+                            annotations: {
+                                line1: {
+                                    type: 'line',
+                                    yMin: opusOneShot,
+                                    yMax: opusOneShot,
+                                    borderColor: 'rgba(236, 72, 153, 0.5)',
+                                    borderWidth: 2,
+                                    borderDash: [5, 5],
+                                    label: {
+                                        display: true,
+                                        content: 'Opus 1-Shot Baseline',
+                                        color: '#ec4899',
+                                        backgroundColor: 'rgba(15, 23, 42, 0.8)',
+                                        position: 'end'
+                                    }
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: (context) => {
+                                    let label = context.dataset.label || '';
+                                    if (label) label += ': ';
+                                    if (context.parsed.y !== null) label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function toggleCheckbox(id) {
+            const el = document.getElementById(id);
+            el.checked = !el.checked;
+            updateDashboard();
+        }
+
+        // Init
+        document.querySelectorAll('input').forEach(el => el.addEventListener('input', updateDashboard));
+        updateDashboard();
+
+    </script>
+</body>
+</html>

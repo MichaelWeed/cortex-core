@@ -1,0 +1,500 @@
+{
+  "gemini-3.0-pro": {
+    "code": "gemini-3.0-pro",
+    "provider": "google",
+    "modality_in": "text,image,audio,video",
+    "modality_out": "text",
+    "context_tokens": 2000000,
+    "capabilities": ["reasoning", "vision", "long-context"],
+    "model": "gemini-3-pro-preview"
+  },
+  "gemini-3.0-flash": {
+    "code": "gemini-3.0-flash",
+    "provider": "google",
+    "modality_in": "text,image,audio,video",
+    "modality_out": "text",
+    "context_tokens": 1000000,
+    "capabilities": ["fast", "vision"],
+    "model": "gemini-3-flash-preview"
+  },
+  "qwen-local": {
+    "code": "qwen-local",
+    "provider": "ollama",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 32768,
+    "capabilities": ["fast", "local"],
+    "model": "qwen2.5:7b",
+    "baseUrl": "http://localhost:11434/v1",
+    "ram_required_gb": 10
+  },
+  "qwen-lmstudio": {
+    "code": "qwen-lmstudio",
+    "provider": "lmstudio",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 32768,
+    "capabilities": ["fast", "local"],
+    "model": "qwen2.5-7b-instruct",
+    "baseUrl": "http://localhost:1234/v1",
+    "ram_required_gb": 10
+  },
+  "qwen-14b-local": {
+    "code": "qwen-14b-local",
+    "provider": "ollama",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 32768,
+    "capabilities": ["local", "balanced"],
+    "model": "qwen2.5:14b",
+    "baseUrl": "http://localhost:11434/v1",
+    "ram_required_gb": 20
+  },
+  "qwen-72b-local": {
+    "code": "qwen-72b-local",
+    "provider": "ollama",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 32768,
+    "capabilities": ["local", "decomposition", "planning"],
+    "model": "qwen2.5-72b-instruct-abliterated-v2-q8_0",
+    "baseUrl": "http://localhost:11434/v1",
+    "ram_required_gb": 90,
+    "ram_safety_margin_gb": 10,
+    "notes": "Requires 80-90GB RAM just to launch. Critical safety checks required."
+  },
+  "tool-orchestra-8b": {
+    "code": "tool-orchestra-8b",
+    "provider": "ollama",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 32768,
+    "capabilities": ["fast", "local", "classification", "routing"],
+    "model": "tool-orchestra:8b",
+    "baseUrl": "http://localhost:11434/v1",
+    "ram_required_gb": 8
+  },
+  "grok-4-fast-non-reasoning": {
+    "code": "grok-4-fast-non-reasoning",
+    "provider": "xai",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 131072,
+    "capabilities": ["fast"],
+    "model": "grok-4-fast-non-reasoning"
+  },
+  "gemini-3-pro-image-preview": {
+    "code": "gemini-3-pro-image-preview",
+    "provider": "google",
+    "modality_in": "text,image",
+    "modality_out": "text,image",
+    "context_tokens": 65536,
+    "capabilities": ["image-generation", "vision", "thinking"],
+    "model": "gemini-3-pro-image-preview"
+  },
+  "gemini-2.5-flash": {
+    "code": "gemini-2.5-flash",
+    "provider": "google",
+    "modality_in": "text,image,video,audio",
+    "modality_out": "text",
+    "context_tokens": 1048576,
+    "capabilities": ["thinking", "function-calling", "code-execution", "file-search", "search-grounding", "structured-outputs"],
+    "model": "gemini-2.5-flash"
+  },
+  "gemini-2.5-flash-preview-09-2025": {
+    "code": "gemini-2.5-flash-preview-09-2025",
+    "provider": "google",
+    "modality_in": "text,image,video,audio",
+    "modality_out": "text",
+    "context_tokens": 1048576,
+    "capabilities": ["thinking", "function-calling", "code-execution", "file-search", "search-grounding", "structured-outputs"],
+    "model": "gemini-2.5-flash-preview-09-2025"
+  },
+  "gemini-2.5-flash-image": {
+    "code": "gemini-2.5-flash-image",
+    "provider": "google",
+    "modality_in": "text,image",
+    "modality_out": "text,image",
+    "context_tokens": 65536,
+    "capabilities": ["image-generation", "structured-outputs"],
+    "model": "gemini-2.5-flash-image"
+  },
+  "gemini-2.5-flash-native-audio-preview-12-2025": {
+    "code": "gemini-2.5-flash-native-audio-preview-12-2025",
+    "provider": "google",
+    "modality_in": "text,audio,video",
+    "modality_out": "text,audio",
+    "context_tokens": 131072,
+    "capabilities": ["audio-generation", "live-api", "function-calling", "search-grounding", "thinking"],
+    "model": "gemini-2.5-flash-native-audio-preview-12-2025"
+  },
+  "gemini-2.5-flash-native-audio-preview-09-2025": {
+    "code": "gemini-2.5-flash-native-audio-preview-09-2025",
+    "provider": "google",
+    "modality_in": "text,audio,video",
+    "modality_out": "text,audio",
+    "context_tokens": 131072,
+    "capabilities": ["audio-generation", "live-api", "function-calling", "search-grounding", "thinking"],
+    "model": "gemini-2.5-flash-native-audio-preview-09-2025"
+  },
+  "gemini-2.5-flash-preview-tts": {
+    "code": "gemini-2.5-flash-preview-tts",
+    "provider": "google",
+    "modality_in": "text",
+    "modality_out": "audio",
+    "context_tokens": 8192,
+    "capabilities": ["audio-generation"],
+    "model": "gemini-2.5-flash-preview-tts"
+  },
+  "gemini-2.5-flash-lite": {
+    "code": "gemini-2.5-flash-lite",
+    "provider": "google",
+    "modality_in": "text,image,video,audio",
+    "modality_out": "text",
+    "context_tokens": 1048576,
+    "capabilities": ["thinking", "function-calling", "code-execution", "file-search", "search-grounding", "structured-outputs"],
+    "model": "gemini-2.5-flash-lite"
+  },
+  "gemini-2.5-flash-lite-preview-09-2025": {
+    "code": "gemini-2.5-flash-lite-preview-09-2025",
+    "provider": "google",
+    "modality_in": "text,image,video,audio",
+    "modality_out": "text",
+    "context_tokens": 1048576,
+    "capabilities": ["thinking", "function-calling", "code-execution", "file-search", "search-grounding", "structured-outputs"],
+    "model": "gemini-2.5-flash-lite-preview-09-2025"
+  },
+  "gemini-2.5-pro": {
+    "code": "gemini-2.5-pro",
+    "provider": "google",
+    "modality_in": "text,image,video,audio",
+    "modality_out": "text",
+    "context_tokens": 1048576,
+    "capabilities": ["thinking", "function-calling", "code-execution", "file-search", "search-grounding", "structured-outputs"],
+    "model": "gemini-2.5-pro"
+  },
+  "gemini-2.5-pro-preview-tts": {
+    "code": "gemini-2.5-pro-preview-tts",
+    "provider": "google",
+    "modality_in": "text",
+    "modality_out": "audio",
+    "context_tokens": 8192,
+    "capabilities": ["audio-generation"],
+    "model": "gemini-2.5-pro-preview-tts"
+  },
+  "gpt-5.2": {
+    "code": "gpt-5.2",
+    "provider": "openai",
+    "modality_in": "text,image",
+    "modality_out": "text",
+    "context_tokens": 400000,
+    "capabilities": ["reasoning", "function-calling", "structured-outputs", "web-search", "file-search", "code-interpreter"],
+    "model": "gpt-5.2"
+  },
+  "gpt-5-mini": {
+    "code": "gpt-5-mini",
+    "provider": "openai",
+    "modality_in": "text,image",
+    "modality_out": "text",
+    "context_tokens": 400000,
+    "capabilities": ["reasoning", "function-calling", "structured-outputs", "web-search", "file-search", "code-interpreter"],
+    "model": "gpt-5-mini"
+  },
+  "gpt-5-nano": {
+    "code": "gpt-5-nano",
+    "provider": "openai",
+    "modality_in": "text,image",
+    "modality_out": "text",
+    "context_tokens": 400000,
+    "capabilities": ["reasoning", "function-calling", "structured-outputs", "web-search", "file-search", "code-interpreter"],
+    "model": "gpt-5-nano"
+  },
+  "gpt-5.1-codex-max": {
+    "code": "gpt-5.1-codex-max",
+    "provider": "openai",
+    "modality_in": "text,image",
+    "modality_out": "text",
+    "context_tokens": 400000,
+    "capabilities": ["reasoning", "function-calling", "coding", "agentic-coding"],
+    "model": "gpt-5.1-codex-max"
+  },
+  "gpt-5.1-codex-mini": {
+    "code": "gpt-5.1-codex-mini",
+    "provider": "openai",
+    "modality_in": "text,image",
+    "modality_out": "text",
+    "context_tokens": 400000,
+    "capabilities": ["reasoning", "function-calling", "coding", "agentic-coding"],
+    "model": "gpt-5.1-codex-mini"
+  },
+  "o3-deep-research": {
+    "code": "o3-deep-research",
+    "provider": "openai",
+    "modality_in": "text,image",
+    "modality_out": "text",
+    "context_tokens": 200000,
+    "capabilities": ["reasoning", "web-browsing", "report-generation", "citation"],
+    "model": "o3-deep-research"
+  },
+  "grok-4-1-fast-reasoning": {
+    "code": "grok-4-1-fast-reasoning",
+    "provider": "xai",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 2000000,
+    "capabilities": ["reasoning", "function-calling", "structured-outputs", "agentic-tool-calling"],
+    "model": "grok-4-1-fast-reasoning"
+  },
+  "grok-4-1-fast-non-reasoning": {
+    "code": "grok-4-1-fast-non-reasoning",
+    "provider": "xai",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 2000000,
+    "capabilities": ["function-calling", "structured-outputs", "agentic-tool-calling"],
+    "model": "grok-4-1-fast-non-reasoning"
+  },
+  "grok-code-fast-1": {
+    "code": "grok-code-fast-1",
+    "provider": "xai",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 256000,
+    "capabilities": ["coding", "agentic-coding", "function-calling"],
+    "model": "grok-code-fast-1"
+  },
+  "command-a-03-2025": {
+    "code": "command-a-03-2025",
+    "provider": "cohere",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 256000,
+    "capabilities": ["tool-use", "agents", "rag", "multilingual"],
+    "model": "command-a-03-2025"
+  },
+  "command-r7b-12-2024": {
+    "code": "command-r7b-12-2024",
+    "provider": "cohere",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": ["rag", "tool-use", "agents", "reasoning"],
+    "model": "command-r7b-12-2024"
+  },
+  "command-a-translate-08-2025": {
+    "code": "command-a-translate-08-2025",
+    "provider": "cohere",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 8000,
+    "capabilities": ["translation", "multilingual"],
+    "model": "command-a-translate-08-2025"
+  },
+  "command-a-reasoning-08-2025": {
+    "code": "command-a-reasoning-08-2025",
+    "provider": "cohere",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 256000,
+    "capabilities": ["reasoning", "problem-solving", "agents", "multilingual"],
+    "model": "command-a-reasoning-08-2025"
+  },
+  "command-a-vision-07-2025": {
+    "code": "command-a-vision-07-2025",
+    "provider": "cohere",
+    "modality_in": "text,image",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": ["vision", "ocr", "document-qa", "object-detection"],
+    "model": "command-a-vision-07-2025"
+  },
+  "command-r-08-2024": {
+    "code": "command-r-08-2024",
+    "provider": "cohere",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": ["rag", "tool-use", "agents"],
+    "model": "command-r-08-2024"
+  },
+  "command-r-plus-08-2024": {
+    "code": "command-r-plus-08-2024",
+    "provider": "cohere",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": ["rag", "tool-use", "agents"],
+    "model": "command-r-plus-08-2024"
+  },
+  "embed-v4.0": {
+    "code": "embed-v4.0",
+    "provider": "cohere",
+    "modality_in": "text,image",
+    "modality_out": "embedding",
+    "context_tokens": 128000,
+    "capabilities": ["embedding", "classification"],
+    "model": "embed-v4.0"
+  },
+  "embed-english-v3.0": {
+    "code": "embed-english-v3.0",
+    "provider": "cohere",
+    "modality_in": "text,image",
+    "modality_out": "embedding",
+    "context_tokens": 512,
+    "capabilities": ["embedding", "classification"],
+    "model": "embed-english-v3.0"
+  },
+  "embed-english-light-v3.0": {
+    "code": "embed-english-light-v3.0",
+    "provider": "cohere",
+    "modality_in": "text,image",
+    "modality_out": "embedding",
+    "context_tokens": 512,
+    "capabilities": ["embedding", "classification"],
+    "model": "embed-english-light-v3.0"
+  },
+  "embed-multilingual-v3.0": {
+    "code": "embed-multilingual-v3.0",
+    "provider": "cohere",
+    "modality_in": "text,image",
+    "modality_out": "embedding",
+    "context_tokens": 512,
+    "capabilities": ["embedding", "classification", "multilingual"],
+    "model": "embed-multilingual-v3.0"
+  },
+  "embed-multilingual-light-v3.0": {
+    "code": "embed-multilingual-light-v3.0",
+    "provider": "cohere",
+    "modality_in": "text,image",
+    "modality_out": "embedding",
+    "context_tokens": 512,
+    "capabilities": ["embedding", "classification", "multilingual"],
+    "model": "embed-multilingual-light-v3.0"
+  },
+  "rerank-v4.0-pro": {
+    "code": "rerank-v4.0-pro",
+    "provider": "cohere",
+    "modality_in": "text",
+    "modality_out": "reranked",
+    "context_tokens": 32000,
+    "capabilities": ["reranking", "multilingual"],
+    "model": "rerank-v4.0-pro"
+  },
+  "rerank-v4.0-fast": {
+    "code": "rerank-v4.0-fast",
+    "provider": "cohere",
+    "modality_in": "text",
+    "modality_out": "reranked",
+    "context_tokens": 32000,
+    "capabilities": ["reranking", "multilingual"],
+    "model": "rerank-v4.0-fast"
+  },
+  "rerank-v3.5": {
+    "code": "rerank-v3.5",
+    "provider": "cohere",
+    "modality_in": "text",
+    "modality_out": "reranked",
+    "context_tokens": 4096,
+    "capabilities": ["reranking"],
+    "model": "rerank-v3.5"
+  },
+  "rerank-english-v3.0": {
+    "code": "rerank-english-v3.0",
+    "provider": "cohere",
+    "modality_in": "text",
+    "modality_out": "reranked",
+    "context_tokens": 4096,
+    "capabilities": ["reranking"],
+    "model": "rerank-english-v3.0"
+  },
+  "rerank-multilingual-v3.0": {
+    "code": "rerank-multilingual-v3.0",
+    "provider": "cohere",
+    "modality_in": "text",
+    "modality_out": "reranked",
+    "context_tokens": 4096,
+    "capabilities": ["reranking", "multilingual"],
+    "model": "rerank-multilingual-v3.0"
+  },
+  "c4ai-aya-expanse-8b": {
+    "code": "c4ai-aya-expanse-8b",
+    "provider": "cohere",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 8000,
+    "capabilities": ["multilingual", "conversational"],
+    "model": "c4ai-aya-expanse-8b"
+  },
+  "c4ai-aya-expanse-32b": {
+    "code": "c4ai-aya-expanse-32b",
+    "provider": "cohere",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": ["multilingual", "conversational"],
+    "model": "c4ai-aya-expanse-32b"
+  },
+  "c4ai-aya-vision-8b": {
+    "code": "c4ai-aya-vision-8b",
+    "provider": "cohere",
+    "modality_in": "text,image",
+    "modality_out": "text",
+    "context_tokens": 16000,
+    "capabilities": ["vision", "multilingual", "multimodal"],
+    "model": "c4ai-aya-vision-8b"
+  },
+  "c4ai-aya-vision-32b": {
+    "code": "c4ai-aya-vision-32b",
+    "provider": "cohere",
+    "modality_in": "text,image",
+    "modality_out": "text",
+    "context_tokens": 16000,
+    "capabilities": ["vision", "multilingual", "multimodal"],
+    "model": "c4ai-aya-vision-32b"
+  },
+  "deepseek-chat": {
+    "code": "deepseek-chat",
+    "provider": "deepseek",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": ["json-output", "tool-calls", "prefix-completion", "fim-completion"],
+    "model": "deepseek-chat"
+  },
+  "deepseek-reasoner": {
+    "code": "deepseek-reasoner",
+    "provider": "deepseek",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 128000,
+    "capabilities": ["thinking-mode", "complex-logic", "json-output", "tool-calls"],
+    "model": "deepseek-reasoner"
+  },
+  "qwen3-coder-30b-a3b-instruct": {
+    "code": "qwen3-coder-30b-a3b-instruct",
+    "provider": "qwen",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 262144,
+    "capabilities": ["coding", "agentic-coding", "tool-calling", "long-context"],
+    "model": "Qwen/Qwen3-Coder-30B-A3B-Instruct"
+  },
+  "z-image-turbo": {
+    "code": "z-image-turbo",
+    "provider": "tongyi-mai",
+    "modality_in": "text",
+    "modality_out": "image",
+    "context_tokens": 0,
+    "capabilities": ["image-generation", "text-to-image", "photorealistic"],
+    "model": "Tongyi-MAI/Z-Image-Turbo"
+  },
+  "glm-4.7-flash": {
+    "code": "glm-4.7-flash",
+    "provider": "zai-org",
+    "modality_in": "text",
+    "modality_out": "text",
+    "context_tokens": 131072,
+    "capabilities": ["agentic", "reasoning", "coding", "tool-calling"],
+    "model": "zai-org/GLM-4.7-Flash"
+  }
+}

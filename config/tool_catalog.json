@@ -1,0 +1,428 @@
+[
+  {
+    "name": "tavily_search",
+    "description": "Optimized web search for AI agents. Use for general knowledge, news, and researching topics.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "Max 400 chars. Keep concise."
+        },
+        "topic": {
+          "type": "string",
+          "enum": ["general", "news"],
+          "default": "general",
+          "description": "Use 'news' for recent events."
+        },
+        "search_depth": {
+          "type": "string",
+          "enum": ["basic", "advanced"],
+          "default": "basic",
+          "description": "'advanced' uses 2 credits for deeper crawl."
+        },
+        "max_results": { "type": "integer", "default": 5, "maximum": 20 },
+        "include_domains": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Domains to strictly include."
+        },
+        "exclude_domains": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Domains to strictly exclude."
+        },
+        "include_raw_content": {
+          "type": "boolean",
+          "default": false,
+          "description": "Fetch full page content (expensive)."
+        },
+        "time_range": {
+          "type": "string",
+          "enum": ["day", "week", "month", "year"],
+          "description": "Filter by time."
+        },
+        "auto_parameters": {
+          "type": "boolean",
+          "default": false,
+          "description": "Let Tavily optimize parameters automatically."
+        }
+      },
+      "required": ["query"]
+    },
+    "implementationPath": "../tools/tavily/search"
+  },
+  {
+    "name": "tavily_crawl",
+    "description": "Graph-based website traversal for deep exploration of a domain.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "description": "The seed URL to start crawling."
+        },
+        "max_depth": { "type": "integer", "default": 1 },
+        "limit": { "type": "integer", "default": 10 }
+      },
+      "required": ["url"]
+    },
+    "implementationPath": "../tools/tavily/crawl"
+  },
+  {
+    "name": "perplexity_search",
+    "description": "Live web search with citation support. Best for fact-checking and deep research.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "query": { "type": "string" },
+        "max_results": { "type": "integer", "default": 5 },
+        "return_images": { "type": "boolean", "default": false },
+        "return_snippets": { "type": "boolean", "default": true },
+        "country": {
+          "type": "string",
+          "description": "ISO 3166-1 alpha-2 code (e.g., 'US', 'GB') for location bias."
+        }
+      },
+      "required": ["query"]
+    },
+    "implementationPath": "../tools/perplexity/search"
+  },
+  {
+    "name": "anthropic_computer_use",
+    "description": "Control a computer GUI (screen viewing, mouse, keyboard).",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": [
+            "key",
+            "type",
+            "mouse_move",
+            "left_click",
+            "left_click_drag",
+            "right_click",
+            "middle_click",
+            "double_click",
+            "screenshot",
+            "cursor_position"
+          ]
+        },
+        "coordinate": {
+          "type": "array",
+          "items": { "type": "integer" },
+          "description": "[x, y] coordinates."
+        },
+        "text": {
+          "type": "string",
+          "description": "Text to type or key combo."
+        }
+      },
+      "required": ["action"]
+    },
+    "implementationPath": "../tools/anthropic/computerUse"
+  },
+  {
+    "name": "anthropic_bash",
+    "description": "Execute bash commands in a sandboxed environment.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "command": { "type": "string", "description": "The command to run." }
+      },
+      "required": ["command"]
+    },
+    "implementationPath": "../tools/anthropic/bash"
+  },
+  {
+    "name": "anthropic_text_editor",
+    "description": "View and edit files in the sandbox.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "command": {
+          "type": "string",
+          "enum": ["view", "create", "str_replace", "insert", "undo_edit"]
+        },
+        "path": { "type": "string", "description": "File path." },
+        "file_text": {
+          "type": "string",
+          "description": "Content for create/insert."
+        },
+        "old_str": { "type": "string", "description": "String to replace." },
+        "new_str": { "type": "string", "description": "Replacement string." }
+      },
+      "required": ["command", "path"]
+    },
+    "implementationPath": "../tools/anthropic/textEditor"
+  },
+  {
+    "name": "google_grounding",
+    "description": "Ground Gemini responses with Google Search real-time data.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "query": {
+          "type": "string",
+          "description": "The query to ground against Google Search."
+        },
+        "dynamic_retrieval_threshold": { "type": "number", "default": 0.3 }
+      },
+      "required": ["query"]
+    },
+    "implementationPath": "../tools/google/grounding"
+  },
+  {
+    "name": "google_code_execution",
+    "description": "Execute Python code for math and data processing via Gemini.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string", "description": "Python code to execute." }
+      },
+      "required": ["code"]
+    },
+    "implementationPath": "../tools/google/codeExecution"
+  },
+  {
+    "name": "google_maps_grounding",
+    "description": "Query Google Maps for location data via Gemini.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "location_query": { "type": "string" }
+      },
+      "required": ["location_query"]
+    },
+    "implementationPath": "../tools/google/maps"
+  },
+  {
+    "name": "xai_web_search",
+    "description": "Real-time web search via Grok.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "query": { "type": "string" },
+        "num_results": { "type": "integer", "default": 5 }
+      },
+      "required": ["query"]
+    },
+    "implementationPath": "../tools/xai/webSearch"
+  },
+  {
+    "name": "xai_x_search",
+    "description": "Search X (Twitter) posts, users, and threads via Grok.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "query": { "type": "string" },
+        "count": { "type": "integer", "default": 5 },
+        "mode": {
+          "type": "string",
+          "enum": ["Latest", "Top"],
+          "default": "Latest"
+        }
+      },
+      "required": ["query"]
+    },
+    "implementationPath": "../tools/xai/xSearch"
+  },
+  {
+    "name": "xai_vision_analysis",
+    "description": "Analyze images or X videos via Grok.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "media_url": { "type": "string" },
+        "prompt": {
+          "type": "string",
+          "description": "Question about the media."
+        }
+      },
+      "required": ["media_url"]
+    },
+    "implementationPath": "../tools/xai/vision"
+  },
+  {
+    "name": "deepgram_listen",
+    "description": "Real-time speech-to-text transcription.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "model": {
+          "type": "string",
+          "enum": ["nova-3", "nova-2", "enhanced"],
+          "default": "nova-3"
+        },
+        "smart_format": { "type": "boolean", "default": true },
+        "diarize": { "type": "boolean", "default": false },
+        "language": { "type": "string", "default": "en-US" },
+        "redact": {
+          "type": "array",
+          "items": { "type": "string", "enum": ["pci", "ssn", "numbers"] }
+        }
+      },
+      "required": ["model"]
+    },
+    "implementationPath": "../tools/deepgram/listen"
+  },
+  {
+    "name": "deepgram_voice_agent",
+    "description": "Conversational voice agent interface.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "type": "string",
+          "enum": ["openai", "anthropic", "google", "groq"],
+          "default": "openai"
+        },
+        "model": {
+          "type": "string",
+          "description": "The thinking model (e.g., gpt-4o, claude-3-5-sonnet)."
+        },
+        "voice": {
+          "type": "string",
+          "description": "TTS voice ID (e.g., aura-asteria-en)."
+        }
+      },
+      "required": ["provider", "model"]
+    },
+    "implementationPath": "../tools/deepgram/voiceAgent"
+  },
+  {
+    "name": "openai_code_interpreter",
+    "description": "Execute Python code in OpenAI's sandbox.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" }
+      },
+      "required": ["code"]
+    },
+    "implementationPath": "../tools/openai/codeInterpreter"
+  },
+  {
+    "name": "openai_file_search",
+    "description": "Search across uploaded files/documents in OpenAI.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "query": { "type": "string" },
+        "file_ids": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["query"]
+    },
+    "implementationPath": "../tools/openai/fileSearch"
+  },
+  {
+    "name": "deepseek_get_weather",
+    "description": "Example user defined tool for DeepSeek strict mode testing.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "location": {
+          "type": "string",
+          "description": "City and state, e.g. San Francisco, CA"
+        }
+      },
+      "required": ["location"],
+      "additionalProperties": false
+    },
+    "implementationPath": "../tools/deepseek/weather"
+  },
+  {
+    "name": "google_programmable_search",
+    "description": "Search the web via Google Programmable Search Engine API. Best for initial seeding of high-quality URLs.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "query": { "type": "string", "description": "Search query." },
+        "num_results": { "type": "integer", "default": 10, "maximum": 10 }
+      },
+      "required": ["query"]
+    },
+    "implementationPath": "../tools/google/programmableSearch"
+  },
+  {
+    "name": "submit_urls_to_yacy",
+    "description": "Submit a list of URLs to the local YaCy crawler for deep indexing.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "urls": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of URLs to crawl."
+        },
+        "depth": {
+          "type": "integer",
+          "default": 2,
+          "description": "Crawl depth (careful with high numbers)."
+        }
+      },
+      "required": ["urls"]
+    },
+    "implementationPath": "../tools/yacy/submit"
+  },
+  {
+    "name": "check_yacy_status",
+    "description": "Check the health and queue status of the YaCy crawler.",
+    "schema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "implementationPath": "../tools/yacy/status"
+  },
+  {
+    "name": "yacy_search",
+    "description": "Query the local sovereign YaCy index.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "query": { "type": "string", "description": "The search query." },
+        "max_results": { "type": "integer", "default": 10 }
+      },
+      "required": ["query"]
+    },
+    "implementationPath": "../tools/yacy/search"
+  },
+  {
+    "name": "advanced_web_extract",
+    "description": "Extract full markdown content and metadata from a URL. Useful for 'reading' a page before deciding to index it.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "url": { "type": "string", "description": "The URL to extract content from." }
+      },
+      "required": ["url"]
+    },
+    "implementationPath": "../tools/web/extract"
+  },
+  {
+    "name": "cortex_add_to_catalog",
+    "description": "Add a new model or tool to the cortex-core catalog. Validates the entry and updates the appropriate catalog file.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["model", "tool"],
+          "description": "Whether to add a model or tool"
+        },
+        "data": {
+          "type": "object",
+          "description": "The model or tool definition as a JSON object. For models, must include: code, provider, modality_in, modality_out, context_tokens, capabilities. For tools, must include: name, description, schema, implementationPath."
+        },
+        "model_id": {
+          "type": "string",
+          "description": "Model ID (optional, will use data.code if not provided)"
+        }
+      },
+      "required": ["type", "data"]
+    },
+    "implementationPath": "../tools/cortex/addToCatalog"
+  }
+]
