@@ -34,13 +34,14 @@ If Cursor uses a JSON config file (typically at `~/.cursor/mcp.json` or similar)
 
 Once configured, all tools from `config/tool_catalog.json` will be available as MCP tools, including:
 
+- `cortex_list_models` - **List models from catalog (SSoT)** — filter by provider, capability, modality; get summary/full/codes
+- `cortex_add_to_catalog` - **Add new models/tools**
 - `tavily_search` - Web search
 - `perplexity_search` - Research search
 - `google_programmable_search` - Google search
 - `anthropic_computer_use` - GUI automation
 - `anthropic_bash` - Shell commands
 - `anthropic_text_editor` - File editing
-- `cortex_add_to_catalog` - **Add new models/tools**
 - And all other tools in your catalog
 
 ## Usage

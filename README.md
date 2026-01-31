@@ -11,6 +11,10 @@ This repository serves as the single source of truth for all AI models ("Brains"
 - **`config/`**: Core catalog files
   - `model_catalog.json`: The registry of available LLMs (xAI, OpenAI, Google, etc.), including their pricing, context windows, and capabilities.
   - `tool_catalog.json`: The registry of executable tools (Search, Scrape, etc.) and their schemas.
+- **`cortex.py`**: Unified CLI — `export`, `list-models`, `check` (use from any directory).
+- **`export_catalog.py`**: Export model catalog to JSON for pipelines.
+- **`model_resolution.py`**: Copy into other repos for `load_catalog()`, `validate_or_map()`, `get_by_role()`, `get_by_capability()`.
+- **`tools/cortex/listModels/`**: List-models implementation (MCP tool `cortex_list_models`).
 - **`tests/`**: Test infrastructure and validation scripts
   - `validate_catalog.py`: Full validation with API calls (monthly runs)
   - `validate_schema.py`: Schema validation only (static checks)
@@ -20,6 +24,8 @@ This repository serves as the single source of truth for all AI models ("Brains"
 - **`assets/`**: Static assets (images, etc.)
 
 ## 🚀 How to Use
+
+**Quick start (from another repo):** `python3 /path/to/cortex-core/cortex.py export -o catalog.json` then read the file at startup; or run `cortex check` in CI. See [Pipeline integration](#-pipeline--other-repo-integration) below.
 
 ### Option 1: Symlink (Recommended for Local Dev)
 
@@ -43,6 +49,17 @@ New-Item -ItemType SymbolicLink -Path ".\config\tool_catalog.json" -Target "$env
 ### Option 2: Copy
 
 If you need a static snapshot for deployment, simply copy the `config/` folder into your project. You won't get updates, and you should be aware that models get deprecated over time by their providers/owners but thats a general maintenance concern and not related to the cortex core.
+
+## 🔌 Pipeline & other-repo integration
+
+Cortex-core is the **SSoT** for "what models exist." Other repos can consume that truth **without MCP**:
+
+- **One CLI:** `python3 cortex.py export | list-models | check` — export catalog, list models, health check (exit 0/1 for CI).
+- **Export catalog (file):** `cortex export -o catalog.json` — pipelines read this at startup; output includes `catalog_version: "1.0"`.
+- **Resolution (Python):** Copy [model_resolution.py](model_resolution.py); use `load_catalog()`, `validate_or_map()`, `get_by_role()`, `get_by_capability()`.
+- **MCP (agents):** `cortex_list_models` and `cortex_add_to_catalog` — list/read and add models from agents.
+
+See [docs/PIPELINE_INTEGRATION.md](docs/PIPELINE_INTEGRATION.md) and [docs/RUNTIME_CATALOG_SCHEMA.md](docs/RUNTIME_CATALOG_SCHEMA.md).
 
 ## 🛠 Maintenance
 

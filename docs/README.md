@@ -13,11 +13,17 @@ This directory contains all project documentation.
 - **COST_ANALYSIS.md** - Cost analysis for validation runs
 - **REVIEW_REPORT.md** - Project review and assessment report
 
+### Pipeline & runtime
+- **PIPELINE_INTEGRATION.md** - Use cortex-core as SSoT from another repo (file, resolution module, scanner)
+- **RUNTIME_CATALOG_SCHEMA.md** - Runtime catalog JSON shape and scanner output contract
+
 ### Tools
 - **TCO_DASHBOARD.html** - AI Total Cost of Ownership dashboard (interactive HTML)
 
 ## Quick Links
 
 - [Main README](../README.md) - Project overview and usage
+- [Pipeline Integration](PIPELINE_INTEGRATION.md) - Use cortex-core from other repos (CLI, export, resolution)
+- [Runtime Catalog Schema](RUNTIME_CATALOG_SCHEMA.md) - JSON contract for catalog and scanner
 - [Validation Guide](VALIDATION_GUIDE.md) - How to validate catalogs
 - [LLM Instructions](README_LLM.md) - For AI agents using this system

@@ -424,5 +424,27 @@
       "required": ["type", "data"]
     },
     "implementationPath": "../tools/cortex/addToCatalog"
+  },
+  {
+    "name": "cortex_list_models",
+    "description": "List models from the cortex-core catalog (SSoT). Filter by provider, capability, modality; get summary, full, or codes. Use at runtime to resolve \"what is available\" for pipelines and agents.",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "provider": { "type": "string", "description": "Filter by provider (e.g. openai, google, ollama)." },
+        "capability": { "type": "string", "description": "Filter by capability (e.g. vision, fast, local)." },
+        "modality_in": { "type": "string", "description": "Required input modalities, comma-separated (e.g. text,image)." },
+        "modality_out": { "type": "string", "description": "Required output modalities, comma-separated." },
+        "include_deprecated": { "type": "boolean", "default": false, "description": "Include deprecated models." },
+        "format": {
+          "type": "string",
+          "enum": ["summary", "full", "codes"],
+          "default": "summary",
+          "description": "summary = code, provider, model, modalities, context_tokens, capabilities; full = full catalog entry; codes = list of { code }."
+        }
+      },
+      "required": []
+    },
+    "implementationPath": "../tools/cortex/listModels"
   }
 ]
